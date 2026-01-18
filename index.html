@@ -24,17 +24,13 @@
     }
 
     /* ---------- Page Background ---------- */
+
     body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      color: var(--ink);
-      background:
-        linear-gradient(rgba(247, 239, 232, 0.85), rgba(247, 239, 232, 0.85)),
-        url("assets/form-background.jpg");
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+}
 
     /* ---------- Layout ---------- */
     .container {
@@ -43,17 +39,35 @@
       padding: 24px;
     }
 
-    .card {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
+   .card {
+  position: relative;
+  background:
+    url("assets/form-background.jpg") center / cover no-repeat;
+  border-radius: 36px;
+  overflow: hidden;
+box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
 
-    .card.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* soft overlay for readability */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(247, 239, 232, 0.88);
+  z-index: 0;
+  
+}
 
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+    
     /* ---------- Header / Arch ---------- */
     .arch {
       background: linear-gradient(180deg, var(--peach), var(--rose));
