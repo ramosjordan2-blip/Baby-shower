@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lauren & Jordan – Baby Shower</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --peach: #e6a07c;
+      --rose: #d16c7c;
+      --cream: #f6ede6;
+      --text: #3a2e2a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #f3d5c4, #f6ede6);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 720px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 40px 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.08);
+      text-align: center;
+    }
+
+    .arch {
+      background: linear-gradient(180deg, var(--peach), var(--rose));
+      border-radius: 300px 300px 40px 40px;
+      padding: 60px 20px 40px;
+      color: white;
+      margin-bottom: 32px;
+    }
+
+    .arch small {
+      letter-spacing: 2px;
+      opacity: .85;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      margin: 12px 0;
+    }
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      margin-top: 0;
+    }
+
+    .details {
+      margin: 28px 0;
+      line-height: 1.7;
+    }
+
+    .divider {
+      width: 80px;
+      height: 2px;
+      background: var(--peach);
+      margin: 24px auto;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    input, select, button {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    button {
+      background: var(--rose);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover { opacity: .9; }
+
+    footer {
+      margin-top: 32px;
+      font-size: 14px;
+      opacity: .7;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+
+      <div class="arch">
+        <small>PLEASE JOIN US FOR</small>
+        <h1>A Baby Shower</h1>
+        <small>IN HONOR OF</small>
+        <h2>Lauren & Jordan</h2>
+      </div>
+
+      <div class="details">
+        <strong>March 28 • 12:00 PM</strong><br/>
+        211 Main St<br/>
+        Wethersfield, CT
+      </div>
+
+      <div class="divider"></div>
+
+      <form>
+        <input placeholder="Your Name(s)" required />
+        <select required>
+          <option value="">Number of Guests</option>
+          <option>Sorry, Can’t Make It</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+        </select>
+        <button type="submit">Submit RSVP</button>
+      </form>
+
+      <footer>
+        Registered at Babylist
+      </footer>
+
+    </div>
+  </div>
+</body>
+</html>
