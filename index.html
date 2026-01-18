@@ -248,11 +248,7 @@ color: white;
 
       <div class="divider"></div>
 
-<form 
-  action="https://docs.google.com/forms/d/e/1FAIpQLSe7rt59O5BmJbhLVdSAt7zsJPmoyuMiYxfhmTZD6buwADFyrQ/formResponse" 
-  method="POST" 
-  target="_blank"
->
+<form id="rsvpForm">
   <select name="entry.1165452286" required>
     <option value="" disabled selected hidden>Select number of Guests</option>
     <option>Sorry, Can’t Make It</option>
@@ -269,6 +265,48 @@ color: white;
 
   <button type="submit">Submit RSVP</button>
 </form>
+
+<div id="thankYouMessage" style="display:none; text-align:center; font-size:18px; font-weight:500; padding:20px; color:var(--rose);">
+  Thank you for your RSVP! 💖
+</div>
+
+<script>
+  const form = document.getElementById("rsvpForm");
+  const thankYouMessage = document.getElementById("thankYouMessage");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // Stop page from navigating
+
+    const formData = new FormData(form);
+
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSe7rt59O5BmJbhLVdSAt7zsJPmoyuMiYxfhmTZD6buwADFyrQ/formResponse", {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    })
+    .then(() => {
+      // Smooth fade out of form
+      form.style.transition = "opacity 0.6s ease";
+      form.style.opacity = 0;
+
+      setTimeout(() => {
+        form.style.display = "none";
+
+        // Show thank you message
+        thankYouMessage.style.display = "block";
+        thankYouMessage.style.opacity = 0;
+        thankYouMessage.style.transition = "opacity 0.6s ease";
+        setTimeout(() => {
+          thankYouMessage.style.opacity = 1;
+        }, 50);
+      }, 600);
+    })
+    .catch(err => {
+      console.error("Error submitting form:", err);
+    });
+  });
+</script>
+
 
 
       <footer>
