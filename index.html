@@ -63,9 +63,12 @@ box-shadow: 0 30px 60px rgba(0,0,0,0.15);
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(247, 239, 232, 0.88);
+  background: radial-gradient(
+    circle at center,
+    rgba(247, 239, 232, 0.7),
+    rgba(247, 239, 232, 0.55)
+  );
   z-index: 0;
-  
 }
 
 .card.show {
@@ -73,17 +76,19 @@ box-shadow: 0 30px 60px rgba(0,0,0,0.15);
   transform: translateY(0);
 }
 
-
+input,
+select {
+  background: rgba(255, 255, 255, 0.95);
+}
     
     /* ---------- Header / Arch ---------- */
-    .arch {
-      background: linear-gradient(180deg, var(--peach), var(--rose));
-      border-radius: 300px 300px 40px 40px;
-      padding: 60px 20px 40px;
-      color: #fff;
-      margin-bottom: 32px;
-      text-align: center;
-    }
+.arch {
+  background: linear-gradient(
+    180deg,
+    rgba(230, 160, 124, 0.9),
+    rgba(209, 108, 124, 0.9)
+  );
+}
 
     .arch small {
       letter-spacing: 2px;
