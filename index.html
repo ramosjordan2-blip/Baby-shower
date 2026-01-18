@@ -14,15 +14,37 @@
       --cream: #f6ede6;
       --text: #3a2e2a;
     }
+.header h1,
+.header h2,
+.header small{
+  opacity:0;
+  animation:fadeUp .8s ease forwards;
+}
 
+.header h1{animation-delay:.3s}
+.header h2{animation-delay:.5s}
+.header small{animation-delay:.1s}
+
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
     * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: linear-gradient(135deg, #f3d5c4, #f6ede6);
-      color: var(--text);
-    }
+body{
+  margin:0;
+  font-family:"Inter",sans-serif;
+  background:
+    linear-gradient(rgba(247,239,232,.85), rgba(247,239,232,.85)),
+    url("assets/form-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color:var(--ink);
+}
+
 
     .container {
       max-width: 720px;
@@ -30,13 +52,16 @@
       padding: 24px;
     }
 
-    .card {
-      background: white;
-      border-radius: 28px;
-      padding: 40px 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,.08);
-      text-align: center;
-    }
+.card{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 1.2s ease, transform 1.2s ease;
+}
+
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
     .arch {
       background: linear-gradient(180deg, var(--peach), var(--rose));
@@ -152,5 +177,10 @@
 
     </div>
   </div>
+  <script>
+  window.addEventListener("load", () => {
+    document.querySelector(".card").classList.add("show");
+  });
+</script>
 </body>
 </html>
