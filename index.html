@@ -2,185 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lauren & Jordan – Baby Shower</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lauren &amp; Jordan – Baby Shower</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
+    /* ---------- Variables ---------- */
     :root {
       --peach: #e6a07c;
       --rose: #d16c7c;
       --cream: #f6ede6;
-      --text: #3a2e2a;
+      --ink: #3a2e2a;
     }
-.header h1,
-.header h2,
-.header small{
-  opacity:0;
-  animation:fadeUp .8s ease forwards;
-}
 
-.header h1{animation-delay:.3s}
-.header h2{animation-delay:.5s}
-.header small{animation-delay:.1s}
+    * {
+      box-sizing: border-box;
+    }
 
-@keyframes fadeUp{
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-    * { box-sizing: border-box; }
+    /* ---------- Page Background ---------- */
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(247, 239, 232, 0.85), rgba(247, 239, 232, 0.85)),
+        url("assets/form-background.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
 
-body{
-  margin:0;
-  font-family:"Inter",sans-serif;
-  background:
-    linear-gradient(rgba(247,239,232,.85), rgba(247,239,232,.85)),
-    url("assets/form-background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color:var(--ink);
-}
-
-
+    /* ---------- Layout ---------- */
     .container {
       max-width: 720px;
       margin: auto;
       padding: 24px;
     }
 
-.card{
-  opacity:0;
-  transform:translateY(40px);
-  transition:opacity 1.2s ease, transform 1.2s ease;
-}
+    .card {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
 
-.card.show{
-  opacity:1;
-  transform:translateY(0);
-}
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
+    /* ---------- Header / Arch ---------- */
     .arch {
-      background: linear-gradient(180deg, var(--peach), var(--rose));
-      border-radius: 300px 300px 40px 40px;
-      padding: 60px 20px 40px;
-      color: white;
-      margin-bottom: 32px;
-    }
-
-    .arch small {
-      letter-spacing: 2px;
-      opacity: .85;
-    }
-
-    h1 {
-      font-family: "Playfair Display", serif;
-      font-size: 44px;
-      margin: 12px 0;
-    }
-
-    h2 {
-      font-family: "Playfair Display", serif;
-      font-weight: 400;
-      margin-top: 0;
-    }
-
-    .details {
-      margin: 28px 0;
-      line-height: 1.7;
-    }
-
-    .divider {
-      width: 80px;
-      height: 2px;
-      background: var(--peach);
-      margin: 24px auto;
-    }
-
-    form {
-      display: grid;
-      gap: 14px;
-      margin-top: 32px;
-    }
-
-    input, select, button {
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      font-size: 16px;
-      font-family: inherit;
-    }
-
-    button {
-      background: var(--rose);
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    button:hover { opacity: .9; }
-
-    footer {
-      margin-top: 32px;
-      font-size: 14px;
-      opacity: .7;
-    }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 36px; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-    <div class="card">
-
-      <div class="arch">
-        <small>PLEASE JOIN US FOR</small>
-        <h1>A Baby Shower</h1>
-        <small>IN HONOR OF</small>
-        <h2>Lauren & Jordan</h2>
-      </div>
-
-      <div class="details">
-        <strong>March 28 • 12:00 PM</strong><br/>
-        211 Main St<br/>
-        Wethersfield, CT
-      </div>
-
-      <div class="divider"></div>
-
-      <form>
-        <input placeholder="Your Name(s)" required />
-        <select required>
-          <option value="">Number of Guests</option>
-          <option>Sorry, Can’t Make It</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-        </select>
-        <button type="submit">Submit RSVP</button>
-      </form>
-
-      <footer>
-        Registered at Babylist
-      </footer>
-
-    </div>
-  </div>
-  <script>
-  window.addEventListener("load", () => {
-    document.querySelector(".card").classList.add("show");
-  });
-</script>
-</body>
-</html>
+      background: linear-gr
