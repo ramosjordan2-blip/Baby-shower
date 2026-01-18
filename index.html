@@ -264,7 +264,18 @@
   <button type="submit">Submit RSVP</button>
 </form>
 
-<div id="thankYouMessage" style="display:none; text-align:center; font-size:18px; font-weight:500; padding:20px; color:var(--rose); position:relative;">
+<div id="thankYouMessage" style="
+    display:none;
+    text-align:center;
+    font-size:18px;
+    font-weight:500;
+    padding:30px;
+    color:var(--rose);
+    position:relative;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+">
   Thank you for your RSVP! 💖
 </div>
 
@@ -297,27 +308,32 @@
         setTimeout(() => {
           thankYouMessage.style.opacity = 1;
 
-          // Add animated hearts
-          for (let i = 0; i < 5; i++) {
-            const heart = document.createElement("div");
-            heart.textContent = "❤️";
-            heart.style.position = "absolute";
-            heart.style.fontSize = `${20 + Math.random()*20}px`;
-            heart.style.left = `${20 + Math.random()*60}%`;
-            heart.style.bottom = "0";
-            heart.style.opacity = 1;
-            heart.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
-            thankYouMessage.appendChild(heart);
+          // Add floating baby bottles like confetti
+          for (let i = 0; i < 12; i++) { // More bottles for fun
+            const bottle = document.createElement("div");
+            bottle.textContent = "🍼";
+            bottle.style.position = "absolute";
+            bottle.style.fontSize = `${15 + Math.random()*25}px`;
+            bottle.style.left = `${Math.random()*100}%`;
+            bottle.style.top = "100%"; // Start below message
+            bottle.style.opacity = 1;
+            bottle.style.transition = `transform ${1.5 + Math.random()}s ease-out, opacity ${1.5 + Math.random()}s ease-out`;
+            thankYouMessage.appendChild(bottle);
 
+            // Animate upward in random path
             setTimeout(() => {
-              heart.style.transform = `translateY(-120px) scale(${0.5 + Math.random()}) rotate(${Math.random()*360}deg)`;
-              heart.style.opacity = 0;
+              const xMove = (Math.random() - 0.5) * 100; // left/right drift
+              const yMove = -150 - Math.random()*100; // float up
+              const rotate = Math.random() * 720; // spin
+              const scale = 0.5 + Math.random()*1;
+              bottle.style.transform = `translate(${xMove}px, ${yMove}px) scale(${scale}) rotate(${rotate}deg)`;
+              bottle.style.opacity = 0;
             }, 50);
 
-            // Remove heart after animation
+            // Remove bottle after animation
             setTimeout(() => {
-              heart.remove();
-            }, 1250);
+              bottle.remove();
+            }, 2000);
           }
 
         }, 50);
@@ -328,6 +344,7 @@
     });
   });
 </script>
+
 
 
 
