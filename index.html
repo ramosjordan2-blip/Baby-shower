@@ -47,15 +47,22 @@ footer {
   z-index: 1;
 }
    .card {
-  position: relative;
-  background:
-    url("assets/form-background.jpg") center / cover no-repeat;
+
+  aspect-ratio: 3 / 4; /* portrait ratio – adjust slightly if needed */
+  max-width: 720px;
+    position: relative;
+  background-color: var(--cream);
+  background-image: url("assets/form-background.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* ← important */
   border-radius: 36px;
   overflow: hidden;
 box-shadow: 0 30px 60px rgba(0,0,0,0.15);
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 1.2s ease, transform 1.2s ease;
+  padding: 8% 10%;
 }
 
 /* soft overlay for readability */
@@ -63,14 +70,21 @@ box-shadow: 0 30px 60px rgba(0,0,0,0.15);
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(247, 239, 232, 0.7),
-    rgba(247, 239, 232, 0.55)
-  );
+ background: rgba(247, 239, 232, 0.6);
   z-index: 0;
 }
-
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(247,239,232,0.15) 70%
+  );
+  pointer-events: none;
+}
+    
 .card.show {
   opacity: 1;
   transform: translateY(0);
@@ -83,11 +97,21 @@ select {
     
     /* ---------- Header / Arch ---------- */
 .arch {
+  position: relative;
+  z-index: 2;
+
   background: linear-gradient(
     180deg,
     rgba(230, 160, 124, 0.9),
     rgba(209, 108, 124, 0.9)
   );
+
+  border-radius: 300px 300px 40px 40px;
+  padding: 60px 24px 44px;
+  margin-bottom: 32px;
+
+  text-align: center;
+  color: #fff;
 }
 
     .arch small {
