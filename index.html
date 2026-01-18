@@ -266,7 +266,7 @@ color: white;
   <button type="submit">Submit RSVP</button>
 </form>
 
-<div id="thankYouMessage" style="display:none; text-align:center; font-size:18px; font-weight:500; padding:20px; color:var(--rose);">
+<div id="thankYouMessage" style="display:none; text-align:center; font-size:18px; font-weight:500; padding:20px; color:var(--rose); position:relative;">
   Thank you for your RSVP! 💖
 </div>
 
@@ -298,6 +298,30 @@ color: white;
         thankYouMessage.style.transition = "opacity 0.6s ease";
         setTimeout(() => {
           thankYouMessage.style.opacity = 1;
+
+          // Add animated hearts
+          for (let i = 0; i < 5; i++) {
+            const heart = document.createElement("div");
+            heart.textContent = "❤️";
+            heart.style.position = "absolute";
+            heart.style.fontSize = `${20 + Math.random()*20}px`;
+            heart.style.left = `${20 + Math.random()*60}%`;
+            heart.style.bottom = "0";
+            heart.style.opacity = 1;
+            heart.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
+            thankYouMessage.appendChild(heart);
+
+            setTimeout(() => {
+              heart.style.transform = `translateY(-120px) scale(${0.5 + Math.random()}) rotate(${Math.random()*360}deg)`;
+              heart.style.opacity = 0;
+            }, 50);
+
+            // Remove heart after animation
+            setTimeout(() => {
+              heart.remove();
+            }, 1250);
+          }
+
         }, 50);
       }, 600);
     })
@@ -306,6 +330,7 @@ color: white;
     });
   });
 </script>
+
 
 
 
