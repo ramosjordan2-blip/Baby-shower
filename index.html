@@ -56,4 +56,159 @@
 
     /* ---------- Header / Arch ---------- */
     .arch {
-      background: linear-gr
+      background: linear-gradient(180deg, var(--peach), var(--rose));
+      border-radius: 300px 300px 40px 40px;
+      padding: 60px 20px 40px;
+      color: #fff;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .arch small {
+      letter-spacing: 2px;
+      opacity: 0.85;
+    }
+
+    .arch h1,
+    .arch h2,
+    .arch small {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .arch small { animation-delay: 0.1s; }
+    .arch h1   { animation-delay: 0.3s; }
+    .arch h2   { animation-delay: 0.5s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- Typography ---------- */
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      margin: 12px 0;
+    }
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    /* ---------- Content ---------- */
+    .details {
+      margin: 28px 0;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .divider {
+      width: 80px;
+      height: 2px;
+      background: var(--peach);
+      margin: 24px auto;
+    }
+
+    /* ---------- Form ---------- */
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    input,
+    select,
+    button {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    button {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      margin-top: 32px;
+      font-size: 14px;
+      opacity: 0.7;
+      text-align: center;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card show">
+
+      <div class="arch">
+        <small>PLEASE JOIN US FOR</small>
+        <h1>A Baby Shower</h1>
+        <small>IN HONOR OF</small>
+        <h2>Lauren &amp; Jordan</h2>
+      </div>
+
+      <div class="details">
+        <strong>March 28 • 12:00 PM</strong><br />
+        211 Main St<br />
+        Wethersfield, CT
+      </div>
+
+      <div class="divider"></div>
+
+      <form>
+        <input type="text" placeholder="Your Name(s)" required />
+
+        <select required>
+          <option value="">Number of Guests</option>
+          <option>Sorry, Can’t Make It</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+        </select>
+
+        <button type="submit">Submit RSVP</button>
+      </form>
+
+      <footer>
+        Registered at Babylist
+      </footer>
+
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.querySelector(".card").classList.add("show");
+    });
+  </script>
+</body>
+</html>
