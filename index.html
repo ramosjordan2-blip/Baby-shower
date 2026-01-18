@@ -48,7 +48,7 @@ footer {
 }
    .card {
 
-  aspect-ratio: 3 / 4; /* portrait ratio – adjust slightly if needed */
+  aspect-ratio: 3 / 3.82; /* portrait ratio – adjust slightly if needed */
   max-width: 720px;
     position: relative;
   background-color: var(--cream);
@@ -63,6 +63,8 @@ box-shadow: 0 30px 60px rgba(0,0,0,0.15);
   transform: translateY(40px);
   transition: opacity 1.2s ease, transform 1.2s ease;
   padding: 8% 10%;
+
+     
 }
 
 /* soft overlay for readability */
@@ -213,7 +215,7 @@ select {
 
 <body>
   <div class="container">
-    <div class="card show">
+    <div class="card">
 
       <div class="arch">
         <small>PLEASE JOIN US FOR</small>
@@ -256,9 +258,11 @@ select {
   </div>
 
   <script>
-    window.addEventListener("load", () => {
-      document.querySelector(".card").classList.add("show");
-    });
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.querySelector(".card").classList.add("show");
+  }, 500); // wait 0.5s before showing card
+});
   </script>
 </body>
 </html>
