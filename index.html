@@ -23,98 +23,94 @@
       box-sizing: border-box;
     }
 
-    /* ---------- Page Background ---------- */
-
     body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  color: var(--ink);
-  background: var(--cream);
-}
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+    }
 
     /* ---------- Layout ---------- */
     .container {
       max-width: 720px;
       margin: auto;
-      padding: 24px;
+      padding: 16px; /* smaller padding for mobile */
     }
-.arch,
-.details,
-.divider,
-form,
-footer {
-  position: relative;
-  z-index: 1;
-}
-   .card {
 
-  aspect-ratio: 3 / 3.82; /* portrait ratio – adjust slightly if needed */
-  max-width: 720px;
-    position: relative;
-  background-color: var(--cream);
-  background-image: url("assets/form-background.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* ← important */
-  border-radius: 36px;
-  overflow: hidden;
-box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-  padding: 8% 10%;
+    .arch,
+    .details,
+    .divider,
+    form,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
 
-     
-}
+    .card {
+      width: 100%;
+      max-width: 720px;
+      position: relative;
+      background-color: var(--cream);
+      background-image: url("assets/form-background.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover; /* better scaling for mobile */
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      padding: 10%; /* fluid padding */
+    }
 
-/* soft overlay for readability */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
- background: rgba(247, 239, 232, 0.6);
-  z-index: 0;
-}
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 45%,
-    rgba(247,239,232,0.15) 70%
-  );
-  pointer-events: none;
-}
-    
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(247, 239, 232, 0.6);
+      z-index: 0;
+    }
 
-input,
-select {
-  background: rgba(255, 255, 255, 0.95);
-}
-    
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 45%,
+        rgba(247,239,232,0.15) 70%
+      );
+      pointer-events: none;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    input,
+    select {
+      background: rgba(255, 255, 255, 0.95);
+      width: 100%; /* full width on mobile */
+      box-sizing: border-box;
+    }
+
     /* ---------- Header / Arch ---------- */
-.arch {
-  position: relative;
-  z-index: 2;
-
-  background: linear-gradient(
-    180deg,
-    rgba(230, 160, 124, 0.9),
-    rgba(209, 108, 124, 0.9)
-  );
-
-  border-radius: 300px 300px 40px 40px;
-  padding: 60px 24px 44px;
-  margin-bottom: 32px;
-
-  text-align: center;
-  color: #fff;
-}
+    .arch {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(
+        180deg,
+        rgba(230, 160, 124, 0.9),
+        rgba(209, 108, 124, 0.9)
+      );
+      border-radius: 300px 300px 40px 40px;
+      padding: 40px 16px 32px; /* reduced padding for smaller screens */
+      margin-bottom: 24px;
+      text-align: center;
+      color: #fff;
+    }
 
     .arch small {
       letter-spacing: 2px;
@@ -143,7 +139,7 @@ select {
     /* ---------- Typography ---------- */
     h1 {
       font-family: "Playfair Display", serif;
-      font-size: 44px;
+      font-size: 36px;
       margin: 12px 0;
     }
 
@@ -151,17 +147,19 @@ select {
       font-family: "Playfair Display", serif;
       font-weight: 400;
       margin: 0;
+      font-size: 24px;
     }
 
     /* ---------- Content ---------- */
     .details {
-      margin: 28px 0;
-      line-height: 1.7;
+      margin: 24px 0;
+      line-height: 1.6;
       text-align: center;
+      font-size: 16px;
     }
 
     .divider {
-      width: 80px;
+      width: 60px;
       height: 2px;
       background: var(--peach);
       margin: 24px auto;
@@ -170,14 +168,14 @@ select {
     /* ---------- Form ---------- */
     form {
       display: grid;
-      gap: 14px;
-      margin-top: 32px;
+      gap: 12px;
+      margin-top: 24px;
     }
 
     input,
     select,
     button {
-      padding: 14px 16px;
+      padding: 12px 16px;
       border-radius: 12px;
       border: 1px solid #ddd;
       font-size: 16px;
@@ -196,9 +194,8 @@ select {
       opacity: 0.9;
     }
 
-    /* ---------- Footer ---------- */
     footer {
-      margin-top: 32px;
+      margin-top: 24px;
       font-size: 14px;
       opacity: 0.7;
       text-align: center;
@@ -206,8 +203,29 @@ select {
 
     /* ---------- Responsive ---------- */
     @media (max-width: 480px) {
+      .card {
+        padding: 8%;
+      }
+
+      .arch {
+        border-radius: 200px 200px 30px 30px;
+        padding: 32px 12px 24px;
+      }
+
       h1 {
-        font-size: 36px;
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      .details {
+        font-size: 15px;
+      }
+
+      .divider {
+        width: 50px;
       }
     }
   </style>
@@ -233,8 +251,6 @@ select {
       <div class="divider"></div>
 
       <form>
-        
-
         <select required>
           <option value="">Number of Guests</option>
           <option>Sorry, Can’t Make It</option>
@@ -246,7 +262,7 @@ select {
           <option>6</option>
           <option>7</option>
         </select>
-<input type="text" placeholder="Your Name(s)" required />
+        <input type="text" placeholder="Your Name(s)" required />
         <button type="submit">Submit RSVP</button>
       </form>
 
@@ -258,11 +274,11 @@ select {
   </div>
 
   <script>
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.querySelector(".card").classList.add("show");
-  }, 500); // wait 0.5s before showing card
-});
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.querySelector(".card").classList.add("show");
+      }, 500);
+    });
   </script>
 </body>
 </html>
