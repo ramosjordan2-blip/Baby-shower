@@ -42,7 +42,8 @@ const FEED_URL = "https://script.google.com/macros/s/AKfycbydjGA-VUncFqkuNYO1wyx
 async function loadPhotos() {
 const res = await fetch(FEED_URL);
 const data = await res.json();
-const photos = data.photos || [];
+
+const photos = data.photos || []; // 👈 THIS IS THE KEY FIX
 
 const gallery = document.getElementById("gallery");
 gallery.innerHTML = "";
@@ -52,7 +53,7 @@ const card = document.createElement("div");
 card.className = "card";
 
 card.innerHTML = `
-<img src="${p.url}" />
+<img src="${p.url}" referrerpolicy="no-referrer" />
 <div class="caption">${p.caption || ""}</div>
 `;
 
