@@ -1,8 +1,16 @@
-<form id="uploadForm">
+<form
+  action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"
+  method="POST"
+  enctype="multipart/form-data"
+  target="uploadFrame"
+>
   <input type="file" name="photo" accept="image/*" required />
   <input type="text" name="caption" placeholder="Caption" />
   <button type="submit">Upload</button>
 </form>
+
+<iframe name="uploadFrame" style="display:none;"></iframe>
+
 
 <script>
 const UPLOAD_URL = "https://script.google.com/macros/s/AKfycbwZEsrZyafeDTQclcPS-OFU7yb4M_q0e8wotbFZGc7fu85_uARtVNEwpzuKMBaY2JjCUQ/exec";
