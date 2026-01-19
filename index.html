@@ -204,8 +204,8 @@
 @media (max-width: 480px) {
   .card {
     padding: 8%;
-    background-size: 160%;      /* Zoom the background */
-    background-position: center 100%; /* move image up */
+    background-size: 170%;      /* Zoom the background */
+    background-position: center 60%; /* move image up */
   }
 
   .arch {
@@ -410,7 +410,7 @@ form.addEventListener("submit", function(e) {
           bottle.style.opacity = 0;
         }, 50);
 
-        setTimeout(() => bottle.remove(), 2000);
+        setTimeout(() => bottle.remove(), 6000);
       }
     }, 600);
   }).catch(err => console.error("Form submit error:", err));
