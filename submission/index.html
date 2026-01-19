@@ -21,11 +21,8 @@ function upload() {
     body.append("caption", document.getElementById("caption").value);
 
     const res = await fetch(
-      "https://script.google.com/macros/s/AKfycby8tIqEmXkUv4zrvcGPHjdm0Ji9miKNk17aNb0KKDCPaP3Am35ntEV4ssBOtB_uplTRRA/exec",
-      {
-        method: "POST",
-        body
-      }
+      "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec",
+      { method: "POST", body }
     );
 
     alert(await res.text());
@@ -34,6 +31,7 @@ function upload() {
   reader.readAsDataURL(file);
 }
 </script>
+
 
 </body>
   </html>
