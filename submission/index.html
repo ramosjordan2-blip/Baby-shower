@@ -1,20 +1,38 @@
 <html>
   <body>
-<form
-  action="https://script.google.com/macros/s/AKfycbzs7WQZ3kIdSmsI7y7QgKrXs_jJt3ZUrIYz9TQC-n2mtQDULdXnz3cYREsHW5O8Sb-i1A/exec"
-  method="POST"
-  enctype="multipart/form-data"
+<input type="file" id="photo" accept="image/*" />
+<input type="text" id="caption" placeholder="Caption" />
+<button onclick="upload()">Upload</button>
 
->
-  <!-- ✅ name="photo" is correct -->
-  <input type="file" name="photo" accept="image/*" required />
+<script>
+async function upload() {
+  const file = document.getElementById("photo").files[0];
+  if (!file) return alert("No file selected");
 
-  <!-- ✅ name="caption" matches e.parameter.caption -->
-  <input type="text" name="caption" placeholder="Caption" />
+  const reader = new FileReader();
+  reader.onload = async () => {
+    const base64 = reader.result.split(",")[1];
 
-  <!-- ✅ normal submit -->
-  <button type="submit">Upload</button>
-</form>
+    const res = await fetch(
+      "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          image: base64,
+          name: file.name,
+          type: file.type,
+          caption: document.getElementById("caption").value
+        })
+      }
+    );
+
+    alert(await res.text());
+  };
+
+  reader.readAsDataURL(file);
+}
+</script>
 
 </body>
   </html>
