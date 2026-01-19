@@ -256,9 +256,11 @@
   margin: 6px 0;
 }
 
-.line1 { animation: fadeInUp 0.8s forwards 0.5s; }
-.line2 { animation: fadeInUp 0.8s forwards 1.2s; }
-.line3 { animation: fadeInUp 0.8s forwards 1.9s; }
+.line1,
+.line2,
+.line3 {
+  animation: fadeInUp 0.8s forwards 0.5s; /* all appear after 0.5s */
+}
 
 @keyframes bounce {
   0% { transform: translateY(0); }
