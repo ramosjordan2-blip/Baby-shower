@@ -425,28 +425,31 @@ form.addEventListener("submit", function(e) {
       thankYou.classList.add("show");
 
       // Floating baby bottles confetti
-      for (let i = 0; i < 12; i++) {
-        const bottle = document.createElement("div");
-        bottle.textContent = "🍼";
-        bottle.style.position = "absolute";
-        bottle.style.fontSize = `${15 + Math.random() * 50}px`;
-        bottle.style.left = `${Math.random() * 100}%`;
-        bottle.style.top = "100%";
-        bottle.style.opacity = 1;
-        bottle.style.transition = `transform ${1.5 + Math.random()}s ease-out, opacity ${1.5 + Math.random()}s ease-out`;
-        thankYou.appendChild(bottle);
+     // Floating baby bottles confetti
+for (let i = 0; i < 12; i++) {
+  const bottle = document.createElement("div");
+  bottle.textContent = "🍼";
+  bottle.style.position = "absolute";
+  bottle.style.fontSize = `${15 + Math.random() * 50}px`;
+  bottle.style.left = `${Math.random() * 100}%`;
+  bottle.style.top = "90%"; // start just inside container
+  bottle.style.opacity = 1;
+  bottle.style.transform = "translate(0,0) scale(1) rotate(0deg)";
+  bottle.style.transition = `transform ${1.5 + Math.random()}s ease-out, opacity ${1.5 + Math.random()}s ease-out`;
+  thankYou.appendChild(bottle);
 
-        setTimeout(() => {
-          const xMove = (Math.random() - 0.5) * 100;
-          const yMove = -150 - Math.random() * 100;
-          const rotate = Math.random() * 720;
-          const scale = 0.5 + Math.random();
-          bottle.style.transform = `translate(${xMove}px, ${yMove}px) scale(${scale}) rotate(${rotate}deg)`;
-          bottle.style.opacity = 0;
-        }, 50);
+  setTimeout(() => {
+    const xMove = (Math.random() - 0.5) * 100;
+    const yMove = -200 - Math.random() * 100;
+    const rotate = Math.random() * 720;
+    const scale = 0.5 + Math.random();
+    bottle.style.transform = `translate(${xMove}px, ${yMove}px) scale(${scale}) rotate(${rotate}deg)`;
+    bottle.style.opacity = 0;
+  }, 50);
 
-        setTimeout(() => bottle.remove(), 6000);
-      }
+  setTimeout(() => bottle.remove(), 4000);
+}
+
     }, 600);
   }).catch(err => console.error("Form submit error:", err));
 });
