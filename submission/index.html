@@ -1,117 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="referrer" content="no-referrer">
-<title>Upload Photo</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upload a Photo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
 
 <style>
+:root {
+  --peach: #e6a07c;
+  --rose: #d16c7c;
+  --cream: #f6ede6;
+  --ink: #3a2e2a;
+}
+
+* { box-sizing: border-box; }
+
 body {
-  font-family: system-ui, sans-serif;
-  background: #fafafa;
   margin: 0;
-  padding: 1rem;
+  font-family: "Inter", sans-serif;
+  background: var(--cream);
+  color: var(--ink);
 }
 
-h2 {
-  margin-bottom: 1rem;
+.container {
+  max-width: 720px;
+  margin: auto;
+  padding: 30px;
 }
 
-/* Match card styling from main page */
 .card {
-  background: white;
-  border-radius: 10px;
-  padding: 16px;
-  max-width: 420px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  position: relative;
+  background: var(--cream);
+  background-image: url("assets/form-background.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  padding: 10%;
+  overflow: hidden;
 }
 
-/* Form layout */
-.field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(247,239,232,0.25);
+  z-index: 0;
 }
 
-label {
-  font-size: 0.85rem;
-  margin-bottom: 4px;
-  color: #444;
+.card > * {
+  position: relative;
+  z-index: 1;
 }
 
-input[type="file"],
-input[type="text"] {
-  font-size: 0.9rem;
-  padding: 8px;
-  border-radius: 6px;
+/* ---------- Arch ---------- */
+.arch {
+  text-align: center;
+  color: white;
+  padding: 24px 0;
+  border-radius: 80px;
+  border: 8px solid rgb(238 198 179);
+  background-image: url("assets/form-background.jpg");
+  background-size: 200%;
+  background-position: center 60%;
+}
+
+.arch h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  margin: 10px 0;
+}
+
+.arch small {
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: var(--peach);
+  margin: 18px auto;
+}
+
+/* ---------- Upload Form ---------- */
+form {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+input,
+button {
+  padding: 14px 16px;
+  border-radius: 12px;
   border: 1px solid #ddd;
-}
-
-input[type="text"] {
-  outline: none;
+  font-size: 16px;
+  font-family: inherit;
+  background: rgba(255,255,255,0.95);
 }
 
 button {
-  margin-top: 8px;
-  padding: 10px;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 8px;
-  background: #0d6af5;
+  background: var(--rose);
   color: white;
+  border: none;
   cursor: pointer;
+  font-weight: 500;
 }
 
 button:hover {
-  background: #0b5bd3;
+  opacity: 0.9;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .container { padding: 10px; }
+  .card {
+    padding: 8% 4%;
+    background-size: 160%;
+    background-position: center 30%;
+  }
+  .arch h1 { font-size: 26px; }
 }
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<h2>📤 Upload a Photo</h2>
+  <div class="card">
 
-<div class="card">
-  <div class="field">
-    <label for="photo">Photo</label>
-    <input type="file" id="photo" accept="image/*" />
-  </div>
+    <div class="arch">
+      <small>SHARE A MEMORY FROM</small>
+      <h1>Lauren &amp; Jordan’s Shower</h1>
+      <small>UPLOAD A PHOTO</small>
+    </div>
 
-  <div class="field">
-    <label for="caption">Caption</label>
-    <input type="text" id="caption" placeholder="Optional caption" />
-  </div>
+    <div class="divider"></div>
 
-  <button onclick="upload()">Upload</button>
-</div>
-
-<script>
-function upload() {
-  const file = document.getElementById("photo").files[0];
-  if (!file) return alert("No file selected");
-
-  const reader = new FileReader();
-
-  reader.onload = async () => {
-    const base64 = reader.result.split(",")[1];
-
-    const body = new URLSearchParams();
-    body.append("image", base64);
-    body.append("name", file.name);
-    body.append("type", file.type);
-    body.append("caption", document.getElementById("caption").value);
-
-    const res = await fetch(
-      "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec",
-      { method: "POST", body }
-    );
-
-    alert(await res.text());
-  };
-
-  reader.readAsDataURL(file);
-}
-</script>
-
-</body>
-</html>
+    <!-- ✅ ORIGINAL FORM – UNCHANGED FUNCTIONALLY -->
+    <form onsubmit="event.preventDefault(); upload();">
+      <input type="file" id="photo" accept="image/*" />
+      <input type="te
