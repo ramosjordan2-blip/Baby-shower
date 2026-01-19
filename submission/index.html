@@ -5,25 +5,26 @@
 <button onclick="upload()">Upload</button>
 
 <script>
-async function upload() {
+function upload() {
   const file = document.getElementById("photo").files[0];
   if (!file) return alert("No file selected");
 
   const reader = new FileReader();
+
   reader.onload = async () => {
     const base64 = reader.result.split(",")[1];
 
+    const body = new URLSearchParams();
+    body.append("image", base64);
+    body.append("name", file.name);
+    body.append("type", file.type);
+    body.append("caption", document.getElementById("caption").value);
+
     const res = await fetch(
-      "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec",
+      "https://script.google.com/macros/s/AKfycby8tIqEmXkUv4zrvcGPHjdm0Ji9miKNk17aNb0KKDCPaP3Am35ntEV4ssBOtB_uplTRRA/exec",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          image: base64,
-          name: file.name,
-          type: file.type,
-          caption: document.getElementById("caption").value
-        })
+        body
       }
     );
 
