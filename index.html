@@ -115,7 +115,26 @@
       background-image: url("assets/form-background.jpg");
       box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
+/* Overlay for soft look */
+.arch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(247, 239, 232, 0.25); /* semi-transparent peach overlay */
+  z-index: 0;
+}
 
+.arch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(247,239,232,0.15) 70%
+  );
+  pointer-events: none;
+}
     .arch small {
       letter-spacing: 2px;
       opacity: 0.85;
