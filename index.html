@@ -18,12 +18,7 @@
       --cream: #f6ede6;
       --ink: #3a2e2a;
     }
-@media (max-width: 480px) {
-  .card {
-    padding: 8%;
-    background-size: 150%;      /* Zoom the background */
-    background-position: center top; /* Adjust focus */
-  }
+
     * {
       box-sizing: border-box;
     }
@@ -203,32 +198,24 @@
     }
 
     /* ---------- Responsive ---------- */
-    @media (max-width: 480px) {
-      .card {
-        padding: 8%;
-      }
+/* ---------- Mobile Overrides ---------- */
+@media (max-width: 480px) {
+  .card {
+    padding: 8%;
+    background-size: 150%;      /* Zoom the background */
+    background-position: center top; /* Adjust focus */
+  }
 
-      .arch {
-        border-radius: 200px 200px 30px 30px;
-        padding: 32px 12px 24px;
-      }
+  .arch {
+    border-radius: 200px 200px 30px 30px;
+    padding: 32px 12px 24px;
+  }
 
-      h1 {
-        font-size: 28px;
-      }
-
-      h2 {
-        font-size: 20px;
-      }
-
-      .details {
-        font-size: 15px;
-      }
-
-      .divider {
-        width: 50px;
-      }
-    }
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  .details { font-size: 15px; }
+  .divider { width: 50px; }
+}
   </style>
 </head>
 
