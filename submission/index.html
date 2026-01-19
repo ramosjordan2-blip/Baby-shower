@@ -143,4 +143,40 @@ button:hover {
     <!-- ✅ ORIGINAL FORM – UNCHANGED FUNCTIONALLY -->
     <form onsubmit="event.preventDefault(); upload();">
       <input type="file" id="photo" accept="image/*" />
-      <input type="te
+      <input type="text" id="caption" placeholder="Add a caption (optional)" />
+      <button type="submit">Upload Photo</button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+function upload() {
+  const file = document.getElementById("photo").files[0];
+  if (!file) return alert("No file selected");
+
+  const reader = new FileReader();
+
+  reader.onload = async () => {
+    const base64 = reader.result.split(",")[1];
+
+    const body = new URLSearchParams();
+    body.append("image", base64);
+    body.append("name", file.name);
+    body.append("type", file.type);
+    body.append("caption", document.getElementById("caption").value);
+
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec",
+      { method: "POST", body }
+    );
+
+    alert(await res.text());
+  };
+
+  reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
