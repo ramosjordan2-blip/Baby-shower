@@ -241,29 +241,34 @@
   color: var(--rose);
   text-align: center;
   opacity: 1;
-  transition: opacity 1s ease;
 }
 
 #welcomeMessage h1 {
   font-size: 36px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   animation: bounce 1s ease infinite alternate;
 }
 
-#welcomeMessage p {
-  font-size: 20px;
+#welcomeMessage .line {
   opacity: 0;
-  animation: fadeIn 1.2s forwards 0.8s;
+  font-size: 20px;
+  margin: 6px 0;
 }
+
+.line1 { animation: fadeInUp 0.8s forwards 0.5s; }
+.line2 { animation: fadeInUp 0.8s forwards 1.2s; }
+.line3 { animation: fadeInUp 0.8s forwards 1.9s; }
 
 @keyframes bounce {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-12px); }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
 
     /* ---------- Responsive ---------- */
 /* ---------- Mobile Overrides ---------- */
@@ -297,10 +302,13 @@
 <body>
   <div class="container">
 
-    <div id="welcomeMessage">
-  <h1>Hold onto your diapers…</h1>
-  <p>the RSVP fun is about to begin! 🍼✨</p>
+<div id="welcomeMessage">
+  <h1>👶 Psst… something tiny is on the way!</h1>
+  <p class="line line1">Grab your confetti…</p>
+  <p class="line line2">and warm up your RSVP fingers 🍼</p>
+  <p class="line line3">The fun is about to begin!</p>
 </div>
+
     
    <!-- --------- Form & Thank You Overlay --------- -->
 <div class="card">
@@ -518,16 +526,18 @@ for (let i = 0; i < 12; i++) {
 
   <script>
 window.addEventListener("load", () => {
+  // Show the card after welcome animation
   setTimeout(() => {
-    // Fade out welcome message
     const welcome = document.getElementById("welcomeMessage");
+    welcome.style.transition = "opacity 1s ease";
     welcome.style.opacity = 0;
     setTimeout(() => welcome.remove(), 1000);
 
-    // Show the card
+    // Show the RSVP card
     document.querySelector(".card").classList.add("show");
-  }, 2000); // 2 seconds for the welcome message
+  }, 3500); // total time of welcome animations (~3.5s)
 });
+
   </script>
 </body>
 </html>
