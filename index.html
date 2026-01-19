@@ -223,119 +223,198 @@
 
 <body>
   <div class="container">
-    <div class="card">
+   <!-- --------- Form & Thank You Overlay --------- -->
+<div class="card">
 
-      <div class="arch">
-        <small>PLEASE JOIN US FOR</small>
-        <h1>A Baby Shower</h1>
-        <small>IN HONOR OF</small>
-        <h2>Lauren &amp; Jordan</h2>
-      </div>
+  <div class="arch">
+    <small>PLEASE JOIN US FOR</small>
+    <h1>A Baby Shower</h1>
+    <small>IN HONOR OF</small>
+    <h2>Lauren &amp; Jordan</h2>
+  </div>
 
-      <div class="details">
-        <strong>March 28 • 12:00 PM</strong><br /><br />
-        Webb Deane Stevens Museum<br />
-        211 Main St<br />
-        Wethersfield, CT
-      </div>
+  <div class="details">
+    <strong>March 28 • 12:00 PM</strong><br><br>
+    Webb Deane Stevens Museum<br>
+    211 Main St<br>
+    Wethersfield, CT
+  </div>
 
+  <!-- RSVP Form -->
   <form id="rsvpForm">
-  <select name="entry.1165452286" required>
-    <option value="" disabled selected hidden>Select number of Guests</option>
-    <option>Sorry, Can’t Make It</option>
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-  </select>
+    <select name="entry.1165452286" required>
+      <option value="" disabled selected hidden>Select number of Guests</option>
+      <option>Sorry, Can’t Make It</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+    </select>
 
-  <input type="text" name="entry.635239557" placeholder="Your Name(s)" required />
+    <input type="text" name="entry.635239557" placeholder="Your Name(s)" required />
 
-  <button type="submit">Submit RSVP</button>
-</form>
+    <button type="submit">Submit RSVP</button>
+  </form>
 
-<div id="thankYouMessage" style="
-    display:none;
-    text-align:center;
-    font-size:18px;
-    font-weight:500;
-    padding:30px;
-    color:var(--rose);
-    position:relative;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-">
-  Thank you for your RSVP! 💖
+  <!-- Thank You Message -->
+  <div id="thankYouMessage">
+    <div class="thank-inner">
+      Thank you for your RSVP! 💖
+    </div>
+  </div>
+
 </div>
 
+<style>
+/* ---------------- Card & Overlay Fix ---------------- */
+.card {
+  position: relative;
+  min-height: 600px; /* prevents collapsing on mobile */
+  background-image: url("assets/form-background.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 36px;
+  overflow: hidden;
+  padding: 10%;
+  transition: all 0.5s ease;
+}
+
+/* Thank-you overlay */
+#thankYouMessage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* allows animations inside */
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+#thankYouMessage .thank-inner {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--rose);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transform: scale(0.8);
+  transition: transform 0.6s ease;
+}
+
+/* When active */
+#thankYouMessage.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+#thankYouMessage.show .thank-inner {
+  transform: scale(1);
+}
+
+/* ---------------- Mobile Adjustments ---------------- */
+@media (max-width: 480px) {
+  .card {
+    background-size: 160%;           /* zoom in */
+    background-position: center 25%; /* move background up to focus on form */
+    padding: 8%;
+  }
+
+  .arch {
+    padding: 32px 12px 24px;
+    border-radius: 200px 200px 30px 30px;
+  }
+
+  h1 { font-size: 28px; }
+  h2 { font-size: 20px; }
+  .details { font-size: 15px; }
+}
+
+/* ---------------- Form Styling ---------------- */
+form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+input, select, button {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+button {
+  background: var(--rose);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+</style>
+
 <script>
-  const form = document.getElementById("rsvpForm");
-  const thankYouMessage = document.getElementById("thankYouMessage");
+const form = document.getElementById("rsvpForm");
+const thankYou = document.getElementById("thankYouMessage");
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault(); // Stop page from navigating
+form.addEventListener("submit", function(e) {
+  e.preventDefault(); // Stop default navigation
+  const formData = new FormData(form);
 
-    const formData = new FormData(form);
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSe7rt59O5BmJbhLVdSAt7zsJPmoyuMiYxfhmTZD6buwADFyrQ/formResponse", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  }).then(() => {
+    // Fade out form
+    form.style.transition = "opacity 0.6s ease";
+    form.style.opacity = 0;
 
-    fetch("https://docs.google.com/forms/d/e/1FAIpQLSe7rt59O5BmJbhLVdSAt7zsJPmoyuMiYxfhmTZD6buwADFyrQ/formResponse", {
-      method: "POST",
-      mode: "no-cors",
-      body: formData
-    })
-    .then(() => {
-      // Smooth fade out of form
-      form.style.transition = "opacity 0.6s ease";
-      form.style.opacity = 0;
+    setTimeout(() => {
+      form.style.display = "none";
 
-      setTimeout(() => {
-        form.style.display = "none";
+      // Show thank-you overlay smoothly
+      thankYou.classList.add("show");
 
-        // Show thank you message
-        thankYouMessage.style.display = "block";
-        thankYouMessage.style.opacity = 0;
-        thankYouMessage.style.transition = "opacity 0.6s ease";
+      // Floating baby bottles confetti
+      for (let i = 0; i < 12; i++) {
+        const bottle = document.createElement("div");
+        bottle.textContent = "🍼";
+        bottle.style.position = "absolute";
+        bottle.style.fontSize = `${15 + Math.random() * 50}px`;
+        bottle.style.left = `${Math.random() * 100}%`;
+        bottle.style.top = "100%";
+        bottle.style.opacity = 1;
+        bottle.style.transition = `transform ${1.5 + Math.random()}s ease-out, opacity ${1.5 + Math.random()}s ease-out`;
+        thankYou.appendChild(bottle);
+
         setTimeout(() => {
-          thankYouMessage.style.opacity = 1;
-
-          // Add floating baby bottles like confetti
-          for (let i = 0; i < 12; i++) { // More bottles for fun
-            const bottle = document.createElement("div");
-            bottle.textContent = "🍼";
-            bottle.style.position = "absolute";
-            bottle.style.fontSize = `${15 + Math.random()*50}px`;
-            bottle.style.left = `${Math.random()*100}%`;
-            bottle.style.top = "100%"; // Start below message
-            bottle.style.opacity = 1;
-            bottle.style.transition = `transform ${1.5 + Math.random()}s ease-out, opacity ${1.5 + Math.random()}s ease-out`;
-            thankYouMessage.appendChild(bottle);
-
-            // Animate upward in random path
-            setTimeout(() => {
-              const xMove = (Math.random() - 0.5) * 100; // left/right drift
-              const yMove = -150 - Math.random()*100; // float up
-              const rotate = Math.random() * 720; // spin
-              const scale = 0.5 + Math.random()*1;
-              bottle.style.transform = `translate(${xMove}px, ${yMove}px) scale(${scale}) rotate(${rotate}deg)`;
-              bottle.style.opacity = 0;
-            }, 50);
-
-            // Remove bottle after animation
-            setTimeout(() => {
-              bottle.remove();
-            }, 2000);
-          }
-
+          const xMove = (Math.random() - 0.5) * 100;
+          const yMove = -150 - Math.random() * 100;
+          const rotate = Math.random() * 720;
+          const scale = 0.5 + Math.random();
+          bottle.style.transform = `translate(${xMove}px, ${yMove}px) scale(${scale}) rotate(${rotate}deg)`;
+          bottle.style.opacity = 0;
         }, 50);
-      }, 600);
-    })
-    .catch(err => {
-      console.error("Error submitting form:", err);
-    });
-  });
+
+        setTimeout(() => bottle.remove(), 2000);
+      }
+    }, 600);
+  }).catch(err => console.error("Form submit error:", err));
+});
 </script>
 
 
