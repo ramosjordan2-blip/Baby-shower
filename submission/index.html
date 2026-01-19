@@ -3,20 +3,19 @@
   <input type="text" name="caption" placeholder="Caption" />
   <button type="submit">Upload</button>
 </form>
-
 <script>
 const UPLOAD_URL =
   "https://script.google.com/macros/s/AKfycby8tIqEmXkUv4zrvcGPHjdm0Ji9miKNk17aNb0KKDCPaP3Am35ntEV4ssBOtB_uplTRRA/exec";
 
 document.getElementById("uploadForm").addEventListener("submit", async e => {
-  e.preventDefault();
+  e.preventDefault(); // 🔴 THIS NOW FULLY STOPS THE OLD SUBMIT
 
   const formData = new FormData(e.target);
 
   await fetch(UPLOAD_URL, {
     method: "POST",
     body: formData,
-    mode: "no-cors" // 👈 REQUIRED for Apps Script
+    mode: "no-cors"
   });
 
   alert("Upload successful!");
