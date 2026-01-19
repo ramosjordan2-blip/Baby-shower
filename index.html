@@ -240,6 +240,7 @@
   font-family: "Playfair Display", serif;
   color: var(--rose);
   text-align: center;
+  overflow: hidden; /* keep emojis inside */
   opacity: 1;
 }
 
@@ -268,6 +269,22 @@
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Emoji floating animation */
+.emoji {
+  position: absolute;
+  font-size: 24px;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-250px) rotate(360deg); opacity: 0; }
+}
+
 
 
     /* ---------- Responsive ---------- */
@@ -526,17 +543,39 @@ for (let i = 0; i < 12; i++) {
 
   <script>
 window.addEventListener("load", () => {
-  // Show the card after welcome animation
+window.addEventListener("load", () => {
+
+  const welcome = document.getElementById("welcomeMessage");
+
+  // Function to create floating emojis
+  function createEmoji() {
+    const emojis = ["🍼","🧸","🎉","👶"];
+    const emoji = document.createElement("div");
+    emoji.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    emoji.classList.add("emoji");
+    emoji.style.left = Math.random() * 90 + "%";
+    emoji.style.fontSize = `${20 + Math.random()*30}px`;
+    emoji.style.animationDuration = `${3 + Math.random()*2}s`;
+    welcome.appendChild(emoji);
+
+    setTimeout(() => emoji.remove(), 5000);
+  }
+
+  // Make emojis appear continuously during welcome animation
+  const emojiInterval = setInterval(createEmoji, 300);
+
+  // After animation (~3.5s), fade out welcome screen
   setTimeout(() => {
-    const welcome = document.getElementById("welcomeMessage");
+    clearInterval(emojiInterval);
     welcome.style.transition = "opacity 1s ease";
     welcome.style.opacity = 0;
     setTimeout(() => welcome.remove(), 1000);
 
     // Show the RSVP card
     document.querySelector(".card").classList.add("show");
-  }, 3500); // total time of welcome animations (~3.5s)
+  }, 3500);
 });
+
 
   </script>
 </body>
