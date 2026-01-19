@@ -1,10 +1,20 @@
+<html>
+  <body>
 <form
-  action="AKfycbwQx7Zjza4pe0ed-49IvFuiqj9ojilV0OfprPp0JgCVpl_rz5zQmK4pPVtTpPStj2xT"
+  action="https://script.google.com/macros/s/AKfycbwQx7Zjza4pe0ed-49IvFuiqj9ojilV0OfprPp0JgCVpl_rz5zQmK4pPVtTpPStj2xT/exec"
   method="POST"
   enctype="multipart/form-data"
   target="hiddenFrame"
 >
-  ...
-</form>
+  <!-- ✅ name="photo" is correct -->
+  <input type="file" name="photo" accept="image/*" required />
 
+  <!-- ✅ name="caption" matches e.parameter.caption -->
+  <input type="text" name="caption" placeholder="Caption" />
+
+  <!-- ✅ normal submit -->
+  <button type="submit">Upload</button>
+</form>
 <iframe name="hiddenFrame" style="display:none"></iframe>
+</body>
+  </html>
