@@ -1,0 +1,22 @@
+<form id="uploadForm">
+  <input type="file" name="photo" accept="image/*" required />
+  <input type="text" name="caption" placeholder="Caption" />
+  <button type="submit">Upload</button>
+</form>
+
+<script>
+const UPLOAD_URL = "https://script.google.com/macros/s/AKfycbwZEsrZyafeDTQclcPS-OFU7yb4M_q0e8wotbFZGc7fu85_uARtVNEwpzuKMBaY2JjCUQ/exec";
+
+document.getElementById("uploadForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+
+  await fetch(UPLOAD_URL, {
+    method: "POST",
+    body: formData
+  });
+
+  alert("Uploaded!");
+});
+</script>
