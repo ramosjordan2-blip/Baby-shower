@@ -41,7 +41,8 @@ const FEED_URL = "https://script.google.com/macros/s/AKfycbyF9_sMyYAsRg_1-gZGT5_
 
 async function loadPhotos() {
 const res = await fetch(FEED_URL);
-const photos = await res.json();
+const data = await res.json();
+const photos = data.photos || [];
 
 const gallery = document.getElementById("gallery");
 gallery.innerHTML = "";
