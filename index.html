@@ -228,6 +228,42 @@
       opacity: 0.7;
       text-align: center;
     }
+#welcomeMessage {
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  font-family: "Playfair Display", serif;
+  color: var(--rose);
+  text-align: center;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+#welcomeMessage h1 {
+  font-size: 36px;
+  margin-bottom: 12px;
+  animation: bounce 1s ease infinite alternate;
+}
+
+#welcomeMessage p {
+  font-size: 20px;
+  opacity: 0;
+  animation: fadeIn 1.2s forwards 0.8s;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-12px); }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
     /* ---------- Responsive ---------- */
 /* ---------- Mobile Overrides ---------- */
@@ -260,6 +296,12 @@
 
 <body>
   <div class="container">
+
+    <div id="welcomeMessage">
+  <h1>Hold onto your diapers…</h1>
+  <p>the RSVP fun is about to begin! 🍼✨</p>
+</div>
+    
    <!-- --------- Form & Thank You Overlay --------- -->
 <div class="card">
 
@@ -475,11 +517,17 @@ for (let i = 0; i < 12; i++) {
   </div>
 
   <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.querySelector(".card").classList.add("show");
-      }, 500);
-    });
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    // Fade out welcome message
+    const welcome = document.getElementById("welcomeMessage");
+    welcome.style.opacity = 0;
+    setTimeout(() => welcome.remove(), 1000);
+
+    // Show the card
+    document.querySelector(".card").classList.add("show");
+  }, 2000); // 2 seconds for the welcome message
+});
   </script>
 </body>
 </html>
