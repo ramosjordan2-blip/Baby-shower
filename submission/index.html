@@ -3,21 +3,21 @@
   <input type="text" name="caption" placeholder="Caption" />
   <button type="submit">Upload</button>
 </form>
+
 <script>
-const UPLOAD_URL =
-  "https://script.google.com/macros/s/AKfycby8tIqEmXkUv4zrvcGPHjdm0Ji9miKNk17aNb0KKDCPaP3Am35ntEV4ssBOtB_uplTRRA/exec";
+const UPLOAD_URL = "YOUR_SCRIPT_URL";
 
 document.getElementById("uploadForm").addEventListener("submit", async e => {
-  e.preventDefault(); // 🔴 THIS NOW FULLY STOPS THE OLD SUBMIT
+  e.preventDefault();
 
   const formData = new FormData(e.target);
 
-  await fetch(UPLOAD_URL, {
+  const res = await fetch(UPLOAD_URL, {
     method: "POST",
-    body: formData,
-    mode: "no-cors"
+    body: formData
   });
 
+  const json = await res.json();
   alert("Upload successful!");
   e.target.reset();
 });
