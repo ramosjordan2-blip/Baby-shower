@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Live Photo Wall</title>
+<style>
+body {
+font-family: system-ui, sans-serif;
+background: #fafafa;
+margin: 0;
+padding: 1rem;
+}
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+gap: 12px;
+}
+.card {
+background: white;
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+img {
+width: 100%;
+display: block;
+}
+.caption {
+padding: 8px;
+font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+
+<h2>📸 Live Photo Wall</h2>
+<div class="grid" id="gallery"></div>
+
+<script>
+const FEED_URL = "PASTE_APPS_SCRIPT_URL_HERE";
+
+async function loadPhotos() {
+const res = await fetch(FEED_URL);
+const photos = await res.json();
+
+const gallery = document.getElementById("gallery");
+gallery.innerHTML = "";
+
+photos.forEach(p => {
+const card = document.createElement("div");
+card.className = "card";
+
+card.innerHTML = `
+<img src="${p.url}" />
+<div class="caption">${p.caption || ""}</div>
+`;
+
+gallery.appendChild(card);
+});
+}
+
+loadPhotos();
+setInterval(loadPhotos, 30000);
+</script>
+
+</body>
+</html>
