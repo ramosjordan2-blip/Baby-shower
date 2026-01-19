@@ -547,8 +547,12 @@ function createEmoji() {
   emoji.textContent = emojis[Math.floor(Math.random()*emojis.length)];
   emoji.classList.add("emoji");
 
-  // Make emojis appear anywhere across the whole screen
-  emoji.style.left = Math.random() * 100 + "%"; // full width
+  // Horizontal position: anywhere across the screen
+  emoji.style.left = Math.random() * 100 + "%";
+
+  // Vertical start: lower on the screen (50% to 100% of container height)
+  const startTop = 50 + Math.random() * 50; // 50% to 100%
+  emoji.style.top = startTop + "%";
 
   // Random size
   emoji.style.fontSize = `${20 + Math.random()*40}px`;
@@ -563,8 +567,9 @@ function createEmoji() {
   setTimeout(() => emoji.remove(), 6000);
 }
 
+
   // Make emojis appear continuously during welcome animation
-  const emojiInterval = setInterval(createEmoji, 300);
+  const emojiInterval = setInterval(createEmoji, 400);
 
   // After animation (~3.5s), fade out welcome screen
   setTimeout(() => {
