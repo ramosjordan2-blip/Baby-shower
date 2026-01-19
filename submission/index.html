@@ -1,8 +1,89 @@
+<!DOCTYPE html>
 <html>
-  <body>
-<input type="file" id="photo" accept="image/*" />
-<input type="text" id="caption" placeholder="Caption" />
-<button onclick="upload()">Upload</button>
+<head>
+<meta name="referrer" content="no-referrer">
+<title>Upload Photo</title>
+
+<style>
+body {
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+  margin: 0;
+  padding: 1rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+/* Match card styling from main page */
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Form layout */
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  color: #444;
+}
+
+input[type="file"],
+input[type="text"] {
+  font-size: 0.9rem;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+input[type="text"] {
+  outline: none;
+}
+
+button {
+  margin-top: 8px;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background: #0d6af5;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0b5bd3;
+}
+</style>
+</head>
+
+<body>
+
+<h2>📤 Upload a Photo</h2>
+
+<div class="card">
+  <div class="field">
+    <label for="photo">Photo</label>
+    <input type="file" id="photo" accept="image/*" />
+  </div>
+
+  <div class="field">
+    <label for="caption">Caption</label>
+    <input type="text" id="caption" placeholder="Optional caption" />
+  </div>
+
+  <button onclick="upload()">Upload</button>
+</div>
 
 <script>
 function upload() {
@@ -32,6 +113,5 @@ function upload() {
 }
 </script>
 
-
 </body>
-  </html>
+</html>
