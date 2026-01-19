@@ -11,3 +11,11 @@
 </form>
 
 <iframe name="uploadFrame" style="display:none;"></iframe>
+<script>
+const iframe = document.querySelector('iframe[name="uploadFrame"]');
+
+iframe.addEventListener("load", () => {
+  alert("Upload successful!");
+  document.getElementById("uploadForm").reset();
+});
+</script>
