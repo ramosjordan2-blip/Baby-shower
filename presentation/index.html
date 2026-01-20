@@ -16,7 +16,14 @@
   --cream: #f6ede6;
   --ink: #3a2e2a;
 }
-
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;    /* vertical center */
+  justify-content: center; /* horizontal center */
+  padding: 24px;          /* safe margin on small screens */
+  box-sizing: border-box;
+}
 /* ---------- Base ---------- */
 * { box-sizing: border-box; }
 
@@ -28,6 +35,8 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+    height: 100%;
+  margin: 0;
 }
 
 body::before {
@@ -42,6 +51,8 @@ body::before {
   
 /* ---------- Slideshow ---------- */
 #slideshow {
+   width: min(90vw, 900px);
+  height: min(70vh, 520px);
   position: fixed;
   inset: 0;
   background: rgba(1,1,1,0);
