@@ -103,7 +103,12 @@ button {
   font-family: inherit;
   background: rgba(255,255,255,0.95);
 }
-
+input[type="file"] {
+  width: 100%;
+  max-width: 100%;
+  line-height: normal;
+}
+  
 button {
   background: var(--rose);
   color: white;
@@ -118,11 +123,18 @@ button:hover {
 
 /* ---------- Mobile ---------- */
 @media (max-width: 600px) {
-  .container { padding: 10px; }
-.card {
+  .container {
+    padding: 10px;
+  }
+
+  .card {
     padding: 24px 16px;
-    min-height: unset;
-  .arch h1 { font-size: 26px; }
+    min-height: auto;
+  }
+
+  .arch h1 {
+    font-size: 26px;
+  }
 }
 </style>
 </head>
