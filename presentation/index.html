@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="referrer" content="no-referrer">
+
+<title>Live Photo Slideshow</title>
+
+<style>
+:root {
+  --bg: #000;
+  --overlay: rgba(0,0,0,0.55);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* ---------- Slideshow ---------- */
+#slideshow {
+  position: fixed;
+  inset: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.show {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: black;
+}
+
+/* ---------- Caption ---------- */
+.caption {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--overlay);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+  max-width: 80%;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* ---------- QR Overlay ---------- */
+#qr-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 12px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+#qr-overlay img {
+  width: 120px;
+  height: 120px;
+}
+
+#qr-overlay small {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .caption {
+    font-size: 0.95rem;
+    bottom: 4%;
+  }
+
+  #qr-overlay {
+    transform: scale(0.85);
+    transform-origin: top right;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="slideshow"></div>
+
+<!-- QR OVERLAY -->
+<div id="qr-overlay">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.laurenandjordanbabyshower.com/submission/" />
+  <small>Scan to upload a photo</small>
+</div>
+
+<script>
+const FEED_URL =
+  "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec";
+
+const SLIDE_DURATION = 6000; // ms
+const REFRESH_INTERVAL = 30000; // ms
+
+let photos = [];
+let index = 0;
+let slideTimer;
+
+async function fetchPhotos() {
+  try {
+    const res = await fetch(FEED_URL);
+    const data = await res.json();
+    const incoming = data.photos || [];
+
+    // Only replace if new photos arrived
+    if (incoming.length !== photos.length) {
+      photos = incoming;
+      index = 0;
+      buildSlides();
+    }
+  } catch (err) {
+    console.error("Failed to load photos", err);
+  }
+}
+
+function buildSlides() {
+  const container = document.getElementById("slideshow");
+  container.innerHTML = "";
+
+  photos.forEach((p, i) => {
+    const slide = document.createElement("div");
+    slide.className = "slide";
+
+    slide.innerHTML = `
+      <img src="${p.url}" />
+      ${p.caption ? `<div class="caption">${p.caption}</div>` : ""}
+    `;
+
+    if (i === 0) slide.classList.add("show");
+    container.appendChild(slide);
+  });
+
+  clearInterval(slideTimer);
+  slideTimer = setInterval(nextSlide, SLIDE_DURATION);
+}
+
+function nextSlide() {
+  const slides = document.querySelectorAll(".slide");
+  if (!slides.length) return;
+
+  slides[index].classList.remove("show");
+  index = (index + 1) % slides.length;
+  slides[index].classList.add("show");
+}
+
+// Init
+fetchPhotos();
+setInterval(fetchPhotos, REFRESH_INTERVAL);
+</script>
+
+</body>
+</html>
