@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
 <meta name="referrer" content="no-referrer">
 <title>Live Photo Wall</title>
 <style>
@@ -29,6 +30,58 @@ display: block;
 padding: 8px;
 font-size: 0.9rem;
 }
+.card {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.card {
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12);
+}
+
+/* ---------- Lightbox ---------- */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+#lightbox.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 12px;
+}
+
+#lightbox .caption {
+  color: white;
+  margin-top: 12px;
+  text-align: center;
+  max-width: 80%;
+}
+
+  
 </style>
 </head>
 <body>
@@ -37,33 +90,53 @@ font-size: 0.9rem;
 <div class="grid" id="gallery"></div>
 
 <script>
-const FEED_URL = "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec";
+const FEED_URL =
+  "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec";
 
 async function loadPhotos() {
-const res = await fetch(FEED_URL);
-const data = await res.json();
+  const res = await fetch(FEED_URL);
+  const data = await res.json();
+  const photos = data.photos || [];
 
-const photos = data.photos || []; // 👈 THIS IS THE KEY FIX
+  const gallery = document.getElementById("gallery");
+  gallery.innerHTML = "";
 
-const gallery = document.getElementById("gallery");
-gallery.innerHTML = "";
+  photos.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "card";
 
-photos.forEach(p => {
-const card = document.createElement("div");
-card.className = "card";
+    card.innerHTML = `
+      <img src="${p.url}" referrerpolicy="no-referrer" />
+      <div class="caption">${p.caption || ""}</div>
+    `;
 
-card.innerHTML = `
-<img src="${p.url}" referrerpolicy="no-referrer" />
-<div class="caption">${p.caption || ""}</div>
-`;
+    card.addEventListener("click", () => {
+      openLightbox(p.url, p.caption);
+    });
 
-gallery.appendChild(card);
-});
+    gallery.appendChild(card);
+  });
+}
+
+function openLightbox(url, caption) {
+  document.getElementById("lightboxImg").src = url;
+  document.getElementById("lightboxCaption").textContent = caption || "";
+  document.getElementById("lightbox").classList.add("show");
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").classList.remove("show");
 }
 
 loadPhotos();
-setInterval(loadPhotos, 30000);
 </script>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <div onclick="event.stopPropagation()">
+    <img id="lightboxImg" />
+    <div class="caption" id="lightboxCaption"></div>
+  </div>
+</div>
 
 </body>
 </html>
