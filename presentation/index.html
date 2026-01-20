@@ -160,6 +160,14 @@ body {
 </div>
 
 <script>
+  const params = new URLSearchParams(window.location.search);
+const bgImage = params.get("bg") || "assets/form-background.jpg";
+
+document.body.style.backgroundImage = `url("${bgImage}")`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundPosition = "center";
+document.body.style.backgroundRepeat = "no-repeat";
+  
 const FEED_URL =
   "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec";
 
