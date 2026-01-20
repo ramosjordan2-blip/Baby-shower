@@ -121,6 +121,75 @@ button:hover {
   opacity: 0.9;
 }
 
+/* ---------- Overlays ---------- */
+#loadingOverlay,
+#successOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(246, 237, 230, 0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 5;
+  border-radius: 18px;
+}
+
+#loadingOverlay.show,
+#successOverlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Loader ---------- */
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(0,0,0,0.1);
+  border-top-color: var(--rose);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Success Card ---------- */
+.success-inner {
+  background: rgba(255,255,255,0.95);
+  padding: 28px 32px;
+  border-radius: 20px;
+  text-align: center;
+  color: var(--rose);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transform: scale(0.8);
+  transition: transform 0.6s ease;
+}
+
+#successOverlay.show .success-inner {
+  transform: scale(1);
+}
+
+/* ---------- Floating Emoji ---------- */
+.success-emoji {
+  position: absolute;
+  font-size: 28px;
+  animation: floatUp 3s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(0deg); opacity: 1; }
+  to { transform: translateY(-220px) rotate(360deg); opacity: 0; }
+}
+
+
+  
 /* ---------- Mobile ---------- */
 @media (max-width: 600px) {
   .container {
@@ -158,14 +227,33 @@ button:hover {
       <input type="text" id="caption" placeholder="Add a caption (optional)" />
       <button type="submit">Upload Photo</button>
     </form>
+<!-- Loading Overlay -->
+<div id="loadingOverlay">
+  <div class="loader"></div>
+  <p>Uploading your photo…</p>
+</div>
 
+<!-- Success Overlay -->
+<div id="successOverlay">
+  <div class="success-inner">
+    <h2>Thank you! 💖</h2>
+    <p>Your photo was uploaded successfully.</p>
+  </div>
+</div>
   </div>
 </div>
 
 <script>
-function upload() {
+async function upload() {
   const file = document.getElementById("photo").files[0];
   if (!file) return alert("No file selected");
+
+  const loading = document.getElementById("loadingOverlay");
+  const success = document.getElementById("successOverlay");
+  const form = document.querySelector("form");
+
+  // Show loading overlay
+  loading.classList.add("show");
 
   const reader = new FileReader();
 
@@ -178,16 +266,46 @@ function upload() {
     body.append("type", file.type);
     body.append("caption", document.getElementById("caption").value);
 
-    const res = await fetch(
-      "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec",
-      { method: "POST", body }
-    );
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec",
+        { method: "POST", body }
+      );
 
-    alert(await res.text());
+      // Fade out loading
+      loading.classList.remove("show");
+
+      // Hide form
+      form.style.transition = "opacity 0.6s ease";
+      form.style.opacity = 0;
+
+      setTimeout(() => {
+        form.style.display = "none";
+        success.classList.add("show");
+
+        // Floating emojis (same vibe as RSVP)
+        for (let i = 0; i < 12; i++) {
+          const emoji = document.createElement("div");
+          emoji.textContent = ["📸","💖","✨","🍼"][Math.floor(Math.random() * 4)];
+          emoji.className = "success-emoji";
+          emoji.style.left = Math.random() * 100 + "%";
+          emoji.style.top = "60%";
+          success.appendChild(emoji);
+
+          setTimeout(() => emoji.remove(), 3000);
+        }
+      }, 600);
+
+    } catch (err) {
+      loading.classList.remove("show");
+      alert("Upload failed. Please try again.");
+      console.error(err);
+    }
   };
 
   reader.readAsDataURL(file);
 }
+
 </script>
 
 </body>
