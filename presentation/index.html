@@ -7,18 +7,23 @@
 
 <title>Live Photo Slideshow</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --bg: #000;
-  --overlay: rgba(0,0,0,0.55);
+  --peach: #e6a07c;
+  --rose: #d16c7c;
+  --cream: #f6ede6;
+  --ink: #3a2e2a;
 }
 
+/* ---------- Base ---------- */
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--bg);
-  font-family: system-ui, sans-serif;
+  font-family: "Inter", sans-serif;
+  background: var(--cream);
   overflow: hidden;
 }
 
@@ -26,13 +31,14 @@ body {
 #slideshow {
   position: fixed;
   inset: 0;
+  background: var(--cream);
 }
 
 .slide {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
 }
 
 .slide.show {
@@ -43,34 +49,48 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background: black;
+  background: var(--cream);
+}
+
+/* ---------- Soft Overlay ---------- */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(246,237,230,0.15),
+    rgba(246,237,230,0.45)
+  );
 }
 
 /* ---------- Caption ---------- */
 .caption {
   position: absolute;
-  bottom: 6%;
+  bottom: 7%;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--overlay);
-  color: white;
-  padding: 12px 18px;
-  border-radius: 14px;
-  max-width: 80%;
-  font-size: 1.1rem;
+  background: rgba(255,255,255,0.92);
+  color: var(--ink);
+  padding: 14px 22px;
+  border-radius: 18px;
+  max-width: 75%;
+  font-size: 1.05rem;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* ---------- QR Overlay ---------- */
+/* ---------- QR Overlay (RSVP Card Style) ---------- */
 #qr-overlay {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background: white;
-  padding: 12px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  top: 24px;
+  right: 24px;
+  background: var(--cream);
+  padding: 16px;
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
   text-align: center;
+  border: 6px solid rgb(238 198 179);
 }
 
 #qr-overlay img {
@@ -80,16 +100,39 @@ body {
 
 #qr-overlay small {
   display: block;
-  margin-top: 6px;
-  font-size: 0.75rem;
-  color: #333;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+
+/* ---------- Title Overlay ---------- */
+#title {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(255,255,255,0.9);
+  padding: 14px 22px;
+  border-radius: 20px;
+  box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+}
+
+#title h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  margin: 0;
+}
+
+#title small {
+  letter-spacing: 2px;
+  font-size: 11px;
 }
 
 /* ---------- Mobile ---------- */
 @media (max-width: 600px) {
   .caption {
     font-size: 0.95rem;
-    bottom: 4%;
+    max-width: 85%;
   }
 
   #qr-overlay {
@@ -104,18 +147,24 @@ body {
 
 <div id="slideshow"></div>
 
+<!-- RSVP-STYLE TITLE -->
+<div id="title">
+  <small>LIVE PHOTO WALL</small>
+  <h1>Lauren & Jordan</h1>
+</div>
+
 <!-- QR OVERLAY -->
 <div id="qr-overlay">
   <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.laurenandjordanbabyshower.com/submission/" />
-  <small>Scan to upload a photo</small>
+  <small>SCAN TO UPLOAD</small>
 </div>
 
 <script>
 const FEED_URL =
   "https://script.google.com/macros/s/AKfycbzZOZ5OVt3-NztmTS-a9KqQUMn6DB6vkE2wGd6lxHnsgWOYNZ4BrrZh_GJvN0yXuJHi3Q/exec";
 
-const SLIDE_DURATION = 6000; // ms
-const REFRESH_INTERVAL = 30000; // ms
+const SLIDE_DURATION = 6500;
+const REFRESH_INTERVAL = 30000;
 
 let photos = [];
 let index = 0;
@@ -127,14 +176,13 @@ async function fetchPhotos() {
     const data = await res.json();
     const incoming = data.photos || [];
 
-    // Only replace if new photos arrived
     if (incoming.length !== photos.length) {
       photos = incoming;
       index = 0;
       buildSlides();
     }
   } catch (err) {
-    console.error("Failed to load photos", err);
+    console.error(err);
   }
 }
 
@@ -168,7 +216,6 @@ function nextSlide() {
   slides[index].classList.add("show");
 }
 
-// Init
 fetchPhotos();
 setInterval(fetchPhotos, REFRESH_INTERVAL);
 </script>
